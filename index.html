@@ -79,8 +79,25 @@
             background-color: rgba(255,255,255,0.1);
         }
         
+        /* Menu burger pour mobile */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+        
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 3px;
+        }
+        
         .hero {
-            height: 80vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -89,6 +106,7 @@
             color: white;
             position: relative;
             overflow: hidden;
+            padding: 2rem 0;
         }
         
         .slideshow {
@@ -131,17 +149,20 @@
             z-index: 1;
             max-width: 800px;
             padding: 2rem;
+            margin-top: 5rem; /* Espace pour le header du club */
         }
         
-        /* Nouvelle classe pour le header du club avec logo + texte côte à côte */
+        /* Club header modifié pour être plus responsive */
         .club-header {
             display: flex;
             align-items: center;
             margin-bottom: 2rem;
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
+            position: relative;
+            z-index: 1;
             text-align: left;
+            width: 100%;
+            justify-content: center;
+            margin-top: 2rem;
         }
         
         .club-logo {
@@ -222,6 +243,8 @@
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
         }
         
         .card:hover {
@@ -237,6 +260,9 @@
         
         .card-content {
             padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .card h3 {
@@ -248,10 +274,20 @@
             margin-bottom: 1.5rem;
         }
         
+        .card ul {
+            list-style-position: inside;
+            margin-left: 0.5rem;
+        }
+        
+        .card ul li {
+            margin-bottom: 0.5rem;
+        }
+        
         .timeline {
             position: relative;
             max-width: 800px;
             margin: 0 auto;
+            padding: 20px 0;
         }
         
         .timeline::after {
@@ -269,6 +305,7 @@
             padding: 10px 40px;
             position: relative;
             width: 50%;
+            box-sizing: border-box;
         }
         
         .timeline-item::after {
@@ -346,7 +383,7 @@
             padding: 0;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.5s ease-out;
         }
         
         .accordion-content {
@@ -375,7 +412,7 @@
             color: var(--accent-color);
         }
         
-        /* Style ajouté pour les photos du bureau */
+        /* Style pour les photos du bureau */
         .team-card .card-img {
             border-radius: 50%;  /* Pour des photos rondes */
             width: 200px;
@@ -408,19 +445,74 @@
             margin-bottom: 0.5rem;
         }
         
+        /* Styles pour mobile et tablette */
+        @media (max-width: 968px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
+            /* Menu burger */
+            .menu-toggle {
+                display: flex;
             }
             
             nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
                 margin-top: 1rem;
+                background-color: var(--primary-color);
+                padding: 1rem 0;
+                border-radius: 0 0 8px 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+            
+            nav.mobile-nav-active ul {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+                text-align: center;
+                width: 100%;
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 0.8rem;
+                width: 100%;
+            }
+            
+            .nav-container {
+                flex-wrap: wrap;
             }
             
             .hero h1 {
                 font-size: 2.2rem;
             }
             
+            .club-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .club-logo {
+                margin-bottom: 1rem;
+                margin-right: 0;
+            }
+            
+            .campaign-title {
+                font-size: 1.5rem;
+            }
+            
+            /* Timeline responsive */
             .timeline::after {
                 left: 31px;
             }
@@ -435,22 +527,42 @@
                 left: 18px;
             }
             
-            .right {
-                left: 0%;
+            .left, .right {
+                left: 0;
             }
             
-            .club-header {
-                flex-direction: column;
-                align-items: flex-start;
+            .right::after {
+                left: 18px;
             }
             
-            .club-logo {
-                margin-bottom: 0.5rem;
-                width: 60px;
+            /* Grid responsive */
+            .grid {
+                grid-template-columns: 1fr;
             }
             
-            .campaign-title {
-                font-size: 1.5rem;
+            /* Accordion responsive */
+            .accordion-header {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .card-img {
+                height: 180px;
+            }
+            
+            .team-card .card-img {
+                width: 150px;
+                height: 150px;
             }
         }
     </style>
@@ -459,7 +571,12 @@
     <header>
         <div class="container nav-container">
             <div class="logo">Nex<span>us</span></div>
-            <nav>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="navigation">
                 <ul>
                     <li><a href="#accueil">Accueil</a></li>
                     <li><a href="#vision">Vision</a></li>
@@ -474,16 +591,15 @@
     <section id="accueil" class="hero">
         <div class="slideshow">
             <div class="slide active" style="background-image: url('./1.png');"></div>
-            <div class="slide" style="background-image: url('./2.png');"></div>
-            <div class="slide" style="background-image: url('./3.png');"></div>
-            <div class="slide" style="background-image: url('./4.png');"></div>
-            <div class="slide" style="background-image: url('./5.png');"></div>
-            <div class="slide" style="background-image: url('./6.png');"></div>
+            <div class="slide" style="background-image: url('./2.webp');"></div>
+            <div class="slide" style="background-image: url('./3.webp');"></div>
+            <div class="slide" style="background-image: url('./4.webp');"></div>
+            <div class="slide" style="background-image: url('./5.webp');"></div>
+            <div class="slide" style="background-image: url('./6.webp');"></div>
         </div>
         <div class="overlay"></div>
-        <!-- Logo et texte de campagne placés en haut à gauche -->
         <div class="club-header">
-            <img src="./data.png" alt="Logo du club" class="club-logo">
+            <img src="./data.webp" alt="Logo du club" class="club-logo">
             <p class="campaign-title">CAMPAGNE ENSEA DATA SCIENCE CLUB</p>
         </div>
         <div class="hero-content">
@@ -499,7 +615,7 @@
         </div>
         <div class="grid">
             <div class="card">
-                <div class="card-img" style="background-image: url('nexus.png');"></div>
+                <div class="card-img" style="background-image: url('nexus.webp');"></div>
                 <div class="card-content">
                     <h3>Pourquoi Nexus ?</h3>
                     <p><strong>"Nexus"</strong> est un mot latin qui signifie "lien", "connexion", "point de rencontre".</p>
@@ -507,14 +623,14 @@
                 </div>
             </div>
             <div class="card">
-                <div class="card-img" style="background-image: url('vision.png');"></div>
+                <div class="card-img" style="background-image: url('vision.webp');"></div>
                 <div class="card-content">
                     <h3>Notre Vision</h3>
                     <p>Faire du club un espace collaboratif et un environnement où chaque personne peut trouver sa part de connaissances.</p>
                 </div>
             </div>
             <div class="card">
-                <div class="card-img" style="background-image: url('objectif.png');"></div>
+                <div class="card-img" style="background-image: url('objectif.webp');"></div>
                 <div class="card-content">
                     <h3>Nos Objectifs</h3>
                     <ul>
@@ -636,38 +752,38 @@
         </div>
         <div class="grid">
             <div class="card">
-                <div class="card-img" style="background-image: url(zindi.png);"></div>
+                <div class="card-img" style="background-image: url(zindi.webp);"></div>
                 <div class="card-content">
                     <h3>Challenges Kaggle et Zindi</h3>
                     <p>Formation sur les challenges Kaggle et Zindi pour préparer les étudiants aux compétitions de data science les plus prestigieuses.</p>
                 </div>
             </div>
             <div class="card">
-                <div class="card-img" style="background-image: url(challenge.png);"></div>
+                <div class="card-img" style="background-image: url(challenge.webp);"></div>
                 <div class="card-content">
                     <h3>Mini Challenges Trimestriels</h3>
                     <p>Mini challenges exceptionnels (à faire en groupe) chaque fin de trimestre dans chaque niveau, avec possibilité de parrainage par certains professeurs de l'école.</p>
                 </div>
             </div>
             <div class="card">
-                <div class="card-img" style="background-image: url(conference.png);"></div>
+                <div class="card-img" style="background-image: url(conference.webp);"></div>
                 <div class="card-content">
                     <h3>Conférences et Collaborations</h3>
                     <p>Conférences avec des thèmes d'actualités, partages d'expérience et collaborations avec les autres écoles du CAPESA, particulièrement pour les webinars.</p>
                 </div>
             </div>
             <div class="card">
-                <div class="card-img" style="background-image: url(app.png);"></div>
+                <div class="card-img" style="background-image: url(app.webp);"></div>
                 <div class="card-content">
                     <h3>Application de Suivi Académique</h3>
                     <p>Réalisation d'une application pour suivi de notes et de niveau des élèves, offrant un outil pratique tout en développant les compétences des membres.</p>
                 </div>
             </div>
             <div class="card">
-                <div class="card-img" style="background-image: url(interclassse.png);"></div>
+                <div class="card-img" style="background-image: url(interclassse.webp);"></div>
                 <div class="card-content">
-                    <h3>interclassse EDSC</h3>
-                    <p>compétitions opposant les differentes classes de l'école</p>
+                    <h3>Interclasse EDSC</h3>
+                    <p>Compétitions opposant les différentes classes de l'école</p>
                 </div>
             </div>
         </div>
@@ -688,7 +804,7 @@
                 <div class="timeline-item right">
                     <div class="timeline-content">
                         <h3>Communication</h3>
-                        <p>Dynamiser les pages du club et accroître sa visibilité auprès de la communauté académique et professionnelle. </br> Beaucoup travailler avec les representants pour la communication</p>
+                        <p>Dynamiser les pages du club et accroître sa visibilité auprès de la communauté académique et professionnelle. <br> Beaucoup travailler avec les représentants pour la communication</p>
                     </div>
                 </div>
                 <div class="timeline-item left">
@@ -720,7 +836,7 @@
                 <div class="card-img" style="background-image: url('./images/vice-president.jpg');"></div>
                 <div class="card-content">
                     <h3>NJOMANI Fred</h3>
-                    <p>Sécrétaire General</p>
+                    <p>Secrétaire Général</p>
                 </div>
             </div>
             
@@ -751,9 +867,9 @@
                 </div>
             </div>
             
-            <!-- Responsable Technique -->
+            <!-- Responsable Communication -->
             <div class="card team-card">
-                <div class="card-img" style="background-image: url('./images/technique.jpg');"></div>
+                <div class="card-img" style="background-image: url('./images/communication.jpg');"></div>
                 <div class="card-content">
                     <h3>COULIBALY Aïcha</h3>
                     <p>Responsable à l'Organisation</p>
@@ -777,9 +893,26 @@
     </footer>
 
     <script>
-        // Slideshow functionality
+        // Menu mobile toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navigation = document.getElementById('navigation');
+        
+        mobileMenu.addEventListener('click', function() {
+            navigation.classList.toggle('mobile-nav-active');
+        });
+        
+        // Fermer le menu quand on clique sur un lien
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navigation.classList.remove('mobile-nav-active');
+            });
+        });
+        
+        // Slideshow functionality avec optimisation
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
+        let slideInterval;
         
         function nextSlide() {
             slides[currentSlide].classList.remove('active');
@@ -787,10 +920,29 @@
             slides[currentSlide].classList.add('active');
         }
         
-        // Change slide every 5 seconds
-        setInterval(nextSlide, 5000);
+        // Démarre le slideshow quand la page est visible
+        function startSlideshow() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
         
-        // Accordion functionality
+        // Arrête le slideshow quand la page n'est pas visible
+        function stopSlideshow() {
+            clearInterval(slideInterval);
+        }
+        
+        // Gestion de la visibilité de la page
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                stopSlideshow();
+            } else {
+                startSlideshow();
+            }
+        });
+        
+        // Démarrage initial du slideshow
+        startSlideshow();
+        
+        // Accordion functionality avec optimisation
         const accordionHeaders = document.querySelectorAll('.accordion-header');
         
         accordionHeaders.forEach(header => {
@@ -800,18 +952,55 @@
                 this.classList.toggle('active');
                 
                 if (this.classList.contains('active')) {
-                    accordionBody.style.maxHeight = accordionBody.scrollHeight + 'px';
+                    // Calculer la hauteur exacte nécessaire
+                    const accordionContent = accordionBody.querySelector('.accordion-content');
+                    accordionBody.style.maxHeight = accordionContent.offsetHeight + 'px';
                 } else {
                     accordionBody.style.maxHeight = 0;
                 }
                 
-                // Close other open accordion items
+                // Fermer les autres accordéons ouverts
                 accordionHeaders.forEach(otherHeader => {
                     if (otherHeader !== this && otherHeader.classList.contains('active')) {
                         otherHeader.classList.remove('active');
                         otherHeader.nextElementSibling.style.maxHeight = 0;
                     }
                 });
+            });
+        });
+        
+        // Amélioration du chargement des images
+        document.addEventListener('DOMContentLoaded', function() {
+            // Préchargement des images du slideshow
+            const slideImages = document.querySelectorAll('.slide');
+            slideImages.forEach(slide => {
+                const bgUrl = slide.style.backgroundImage.slice(4, -1).replace(/"/g, "");
+                if (bgUrl) {
+                    const img = new Image();
+                    img.src = bgUrl;
+                }
+            });
+            
+            // Activer le premier accordéon par défaut pour démonstration
+            if (accordionHeaders.length > 0) {
+                accordionHeaders[0].click();
+            }
+        });
+        
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70, // Ajustement pour le header fixe
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>
